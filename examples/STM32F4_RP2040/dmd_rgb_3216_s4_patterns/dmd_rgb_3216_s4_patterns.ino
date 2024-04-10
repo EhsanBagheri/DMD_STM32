@@ -256,6 +256,7 @@ void loop(void)
   // -- vertical scrolling message
   while (1) {
     if ((millis() - prev_step) > interval) {
+      prev_step = millis();  // moved to the start of the loop to prevent "scroll not smooth" issue
       if (test >= test_cnt) {
         test = 0;
         // draw message
@@ -340,7 +341,7 @@ void loop(void)
 
       }
 
-      prev_step = millis();
+     
 
     }
   }
