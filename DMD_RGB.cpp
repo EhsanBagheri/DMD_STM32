@@ -400,9 +400,10 @@ void DMD_RGB_BASE::drawPixel(int16_t x, int16_t y, uint16_t c)  {
 
 		// Adafruit_GFX uses 16-bit color in 5/6/5 format, while matrix needs
 		// 4/4/4.  Pluck out relevant bits while separating into R,G,B:
-	r = c >> 12;        // RRRRrggggggbbbbb
-	g = (c >> 7) & 0xF; // rrrrrGGGGggbbbbb
-	b = (c >> 1) & 0xF; // rrrrrggggggBBBBb
+	//r = c >> 12;        // RRRRrggggggbbbbb
+	//g = (c >> 7) & 0xF; // rrrrrGGGGggbbbbb
+	//b = (c >> 1) & 0xF; // rrrrrggggggBBBBb
+    extractColors(c,r,g,b);
 
 	uint16_t base_addr = get_base_addr(x, y);
 	ptr = &matrixbuff[backindex][base_addr]; // Base addr
@@ -540,9 +541,10 @@ void DMD_RGB_BASE::getColorBytes(uint8_t* cbytes, uint16_t color) {
 		// 4/4/4.  Pluck out relevant bits while separating into R,G,B:
 
 	uint16_t c = color;
-	r = c >> 12;        // RRRRrggggggbbbbb
-	g = (c >> 7) & 0xF; // rrrrrGGGGggbbbbb
-	b = (c >> 1) & 0xF; // rrrrrggggggBBBBb
+	//r = c >> 12;        // RRRRrggggggbbbbb
+	//g = (c >> 7) & 0xF; // rrrrrGGGGggbbbbb
+	//b = (c >> 1) & 0xF; // rrrrrggggggBBBBb
+    extractColors(c,r,g,b);
 
 
 	limit = 1 << nPlanes;
@@ -557,6 +559,53 @@ void DMD_RGB_BASE::getColorBytes(uint8_t* cbytes, uint16_t color) {
 	}
 	ptr -= col_bytes_cnt;
 	memcpy(cbytes, ptr, col_bytes_cnt); return;
+}
+/*--------------------------------------------------------------------------------------*/
+void DMD_RGB_BASE::extractColors(uint16_t c, uint8_t &r, uint8_t &g, uint8_t &b) {
+uint8_t r0, g0, b0;
+
+    r0 = c >> 12;        // RRRRrggggggbbbbb
+	g0 = (c >> 7) & 0xF; // rrrrrGGGGggbbbbb
+	b0 = (c >> 1) & 0xF; // rrrrrggggggBBBBb
+
+    switch (this -> Color_order) {
+		case DMD_Color_order::RGB :
+		r = r0;
+		g = g0;
+		b = b0;
+		break;
+
+		case DMD_Color_order::RBG :
+		r = r0;
+		g = b0;
+		b = g0;
+		break;
+
+		case DMD_Color_order::BRG :
+		r = b0;
+		g = r0;
+		b = g0;
+		break;
+
+		case DMD_Color_order::BGR :
+		r = b0;
+		g = g0;
+		b = r0;
+		break;
+
+		case DMD_Color_order::GRB :
+		r = g0;
+		g = r0;
+		b = b0;
+		break;
+
+		case DMD_Color_order::GBR :
+		r = g0;
+		g = b0;
+		b = r0;
+		break;
+	}
+
 }
 /*--------------------------------------------------------------------------------------*/
 void DMD_RGB_BASE::fillScreen(uint16_t c)  {

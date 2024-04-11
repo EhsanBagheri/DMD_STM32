@@ -27,6 +27,7 @@
 #endif
 
 
+enum class DMD_Color_order : uint8_t { RGB = 0x00, RBG, BRG, BGR, GRB, GBR };
 
 
 // COLOR DEPTH
@@ -88,6 +89,10 @@ public:
 		Color444(uint8_t r, uint8_t g, uint8_t b),
 		Color888(uint8_t r, uint8_t g, uint8_t b);
 	
+	void setColorOrder(DMD_Color_order color_order) {
+		Color_order = color_order;
+	}
+
 	~DMD_RGB_BASE();
 
 	virtual void scan_dmd_p1();
@@ -108,12 +113,13 @@ protected:
 	void send_to_allRGB(uint16_t data, uint16_t latches);
 	virtual void chip_init() {};	
 #endif
+ 
 	virtual void setCycleLen();
 	virtual uint16_t get_base_addr(int16_t& x, int16_t& y);
 	virtual void drawHByte(int16_t x, int16_t y, uint8_t hbyte, uint16_t bsize, uint8_t* fg_col_bytes,
 		uint8_t* bg_col_bytes) override;
 	virtual void getColorBytes(uint8_t* cbytes, uint16_t color) override;
-	
+	void extractColors(uint16_t color, uint8_t &r, uint8_t &g, uint8_t &b);
 	void  drawMarqueeString(int bX, int bY, const char* bChars, int length,
 		int16_t miny, int16_t maxy, byte orientation = 0) override;
 
@@ -158,6 +164,7 @@ uint16_t           expand[256];           // 6-to-32 bit converter table
 	uint16_t colors[2] = { 0, 0 };
 	uint8_t col_cache[8] = { 0 };
 	uint8_t last_color = 0;
+    DMD_Color_order Color_order = DMD_Color_order::RGB;
 
 	// interrupt cycles length (in clock tics)
 	uint32_t callOverhead;
@@ -357,9 +364,10 @@ void getColorBytes(uint8_t* cbytes, uint16_t color) override {
 		// 4/4/4.  Pluck out relevant bits while separating into R,G,B:
 
 	uint16_t c = color;
-	r = c >> 12;        // RRRRrggggggbbbbb
-	g = (c >> 7) & 0xF; // rrrrrGGGGggbbbbb
-	b = (c >> 1) & 0xF; // rrrrrggggggBBBBb
+	//r = c >> 12;        // RRRRrggggggbbbbb
+	//g = (c >> 7) & 0xF; // rrrrrGGGGggbbbbb
+	//b = (c >> 1) & 0xF; // rrrrrggggggBBBBb
+    extractColors(c,r,g,b);
 
 	//if (nPlanes == 4) {
 
@@ -462,9 +470,10 @@ void drawPixel(int16_t x, int16_t y, uint16_t c) override {
 
 		// Adafruit_GFX uses 16-bit color in 5/6/5 format, while matrix needs
 		// 4/4/4.  Pluck out relevant bits while separating into R,G,B:
-	r = c >> 12;        // RRRRrggggggbbbbb
-	g = (c >> 7) & 0xF; // rrrrrGGGGggbbbbb
-	b = (c >> 1) & 0xF; // rrrrrggggggBBBBb
+	//r = c >> 12;        // RRRRrggggggbbbbb
+	//g = (c >> 7) & 0xF; // rrrrrGGGGggbbbbb
+	//b = (c >> 1) & 0xF; // rrrrrggggggBBBBb
+    extractColors(c,r,g,b);
 
 	uint16_t base_addr = get_base_addr(x, y);
 	ptr = &matrixbuff[backindex][base_addr]; // Base addr
