@@ -115,6 +115,9 @@ void setup(void)
 
     // initialize DMD objects
 	dmd.init(); 
+
+    // in case if your panels has a color orders other than RGB:
+    //dmd.setColorOrder(DMD_Color_order :: BRG);
     
 }
 
