@@ -1,4 +1,10 @@
 # ChangeLog
+## [1.1.4] - 2024-04-12 
+ - Fix "text not smooth" issue #86
+ - Change <COLOR_4BITS> to <COLOR_4BITS_Packed> mode in STM32F1 examples due to incompatibility 
+   with recommended pin sets.
+ - Add enableDebugPorts() call to STM32F1 examples
+ 
 ## [1.1.3] - 2024-04-11 
  - Fix display crashes Pi Pico (pull request #94)
  - Change pattern templates to variadic, replace some old templates.
