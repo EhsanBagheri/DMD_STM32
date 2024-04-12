@@ -41,13 +41,19 @@ uint8_t custom_rgbpins[] = { PA15, PA0,PA1,PA2,PA3,PA4,PA5 }; // CLK, R0, G0, B0
 // RGB32x16plainS4_DIRECT  - 32x16 1/4 DIRECT mux
 // RGB32x16plainS2_DIRECT  - 32x16 1/2 Binary mux
 
-DMD_RGB <RGB32x16plainS4, COLOR_4BITS> dmd(mux_list, DMD_PIN_nOE, DMD_PIN_SCLK, custom_rgbpins, DISPLAYS_ACROSS, DISPLAYS_DOWN, ENABLE_DUAL_BUFFER);
+// Color depth - <COLOR_4BITS_Packed> or <COLOR_4BITS> 
+// <COLOR_1BITS> mode is not recomended for bitmap
+
+DMD_RGB <RGB32x16plainS4, COLOR_4BITS_Packed> dmd(mux_list, DMD_PIN_nOE, DMD_PIN_SCLK, custom_rgbpins, DISPLAYS_ACROSS, DISPLAYS_DOWN, ENABLE_DUAL_BUFFER);
 
 uint16_t bg = 0;  // background - black
 uint16_t fg = 0;  // foreground
 
 void setup(void)
 {
+    // uncomment the line below if you using St-Link with STM32F103xx boards
+    //enableDebugPorts();
+    
     dmd.init();
     fg = dmd.Color888(0, 0, 255);
     dmd.setBrightness(50);

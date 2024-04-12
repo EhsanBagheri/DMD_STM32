@@ -41,7 +41,7 @@ uint8_t custom_rgbpins[] = {PA15, PA0,PA1,PA2,PA3,PA4,PA5 }; // CLK, R0, G0, B0,
 
 // Fire up the DMD object as dmd<MATRIX_TYPE, COLOR_DEPTH>
 // We use 64x32 matrix with 16 scans and 4bit color:
-DMD_RGB <RGB64x32plainS16,COLOR_4BITS> dmd(mux_list, DMD_PIN_nOE, DMD_PIN_SCLK, custom_rgbpins, DISPLAYS_ACROSS, DISPLAYS_DOWN, ENABLE_DUAL_BUFFER);
+DMD_RGB <RGB64x32plainS16,COLOR_4BITS_Packed> dmd(mux_list, DMD_PIN_nOE, DMD_PIN_SCLK, custom_rgbpins, DISPLAYS_ACROSS, DISPLAYS_DOWN, ENABLE_DUAL_BUFFER);
 // other options are:
 // <RGB32x16plainS8> -  32x16 matrix with 8scans
 // <RGB80x40plainS20> - 80x40 matrix with 20scans
@@ -61,7 +61,10 @@ uint8_t ptr = 0;
 
 void setup(void)
 {
-// initialize DMD objects
+  // uncomment the line below if you using St-Link with STM32F103xx boards
+    //enableDebugPorts();
+
+  // initialize DMD objects
 	dmd.init(); 
 }
 
