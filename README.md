@@ -61,28 +61,40 @@ Other features
  - For monochrome display - a new "Parallel" connection scheme, in which each horizontal row of panels is connected to a separate R_DATA pin
 
 
-Attention! Pre-installation requirements
-----------
-This library works with Arduino IDE 1.6-1.9, Arduino IDE 2.x versions are **not tested**. 
-
-**Adafruit_GFX library**
-
-DMD_STM32a project **requires** Adafruit_GFX library version prior to 1.8.0 (v1.7.0 is OK) https://github.com/adafruit/Adafruit-GFX-Library/releases/tag/1.7.0
-
-**STM32** 
-
-The only Roger Clarks's repo https://github.com/rogerclarkmelbourne/Arduino_STM32 is supported for STM32 based boards on Arduino IDE.To support STM32F4 boards you need custom version of repo: https://github.com/board707/Arduino_STM32/tree/lto_for_c6
-
-**Raspberry Pi Pico** 
-
-This code **requires Earle Philhower core** https://github.com/earlephilhower/arduino-pico
-
 Compatible boards
 -----------------
 
 * STM32F1 - STM32F103C8 (bluepill) and STM32F103C6 boards tested 
-* STM32F4 - STM32F401CC and STM32F411CE boards (**Custom STM32 repo required!**)
+* STM32F4 - STM32F401CC and STM32F411CE boards 
 * Raspberry Pi Pico and other RP2040-based boards 
+
+Installation
+-------------
+
+There are two ways to install the library:
+* Download ZIP-archive directly from [Releases](https://github.com/board707/DMD_STM32/releases) section, open your Arduino IDE, click on `Sketch > Include Library > Add . ZIP Library`. Choose the zip file you just downloaded.
+* Using Library Manager (since Arduino IDE 1.6.2): navigate to `Sketch > Include Library > Manage Libraries` inside your Arduino IDE and search for the library, then click `Install`.
+
+#### Pre-installation requirements
+
+* Adafruit_GFX library
+
+    DMD_STM32a project requires [Adafruit GFX library](https://github.com/adafruit/Adafruit-GFX-Library)
+
+   
+#### Arduino support packages for STM32 and Raspberry Pi Pico
+
+* STM32
+
+    The only Roger Clarks's repo https://github.com/rogerclarkmelbourne/Arduino_STM32 is supported for STM32 based boards on Arduino IDE.
+  
+  > Please note that Clark's repo versions prior [d05a128](https://github.com/rogerclarkmelbourne/Arduino_STM32/commit/d05a1289f1e2eaa5127a4bfed9602e2cd48c6ffe) (28 Apr 2024) is incompatible with recent Adafruit GFX library. Use Adafruit GFX version prior to 1.8.0 (v1.7.0 is OK) https://github.com/adafruit/Adafruit-GFX-Library/releases/tag/1.7.0
+
+
+* Raspberry Pi Pico
+
+   This code requires Earle Philhower core https://github.com/earlephilhower/arduino-pico
+
 
 Connection
 ----------
