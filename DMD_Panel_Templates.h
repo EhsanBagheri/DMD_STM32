@@ -90,7 +90,7 @@
 #define RGB40x20_S5_saka2080    	3,40,20,5,112,8,PATTERN_LND   // 40x20 s5 8pixbase, BINARY, from saka2080, issue #90
 #define RGB80x40_S10_OKSingra     	4,80,40,10,102,16,PATTERN_LPS	// 80x40 s10 16pixbase, BINARY, from OKSingra, issue #88
 #define RGB32x16_s4_miralay001     	2,32,16,4,102,8,PATTERN_UPS   // 32x16 s4 8pixbase, BINARY, from miralay001, issue #96
-
+#define RGB80x40_S10_ShiPC123 		3,80,40,10,102,4,PATTERN_UPS	// 80x40 s10 4 pixbase, SHIFT_REG, from ShiPC123, issue #104
 
 
 /*--------------------------------------------------------------------------------------*/
@@ -904,14 +904,14 @@ public:
 	DMD_RGB_SHIFTREG_ABC() = 0;
 };*/
 //--------------------------------------------------------------------------------------
-template <int MUX_CNT, int P_Width, int P_Height, int SCAN, int SCAN_TYPE, int COL_DEPTH>
-class DMD_RGB_SHIFTREG_ABC : public DMD_RGB<MUX_CNT, P_Width, P_Height, SCAN, SCAN_TYPE, COL_DEPTH>
+template <int MUX_CNT, int P_Width, int P_Height, int SCAN, int SCAN_TYPE, int... Pars>
+class DMD_RGB_SHIFTREG_ABC : public DMD_RGB<MUX_CNT, P_Width, P_Height, SCAN, SCAN_TYPE, Pars... >
 	
 {
 public:
 	DMD_RGB_SHIFTREG_ABC(uint8_t* mux_list, byte _pin_nOE, byte _pin_SCLK, uint8_t* pinlist,
 		byte panelsWide, byte panelsHigh, bool d_buf = false) :
-		DMD_RGB<MUX_CNT, P_Width, P_Height, SCAN, SCAN_TYPE, COL_DEPTH>(mux_list, _pin_nOE, _pin_SCLK, pinlist,
+		DMD_RGB<MUX_CNT, P_Width, P_Height, SCAN, SCAN_TYPE, Pars... >(mux_list, _pin_nOE, _pin_SCLK, pinlist,
 			panelsWide, panelsHigh, d_buf)
 	{}
 
