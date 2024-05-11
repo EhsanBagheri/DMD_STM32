@@ -3,16 +3,15 @@
 # DMD_STM32a - LED Matrix library with Unicode fonts support 
 
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/board707/DMD_STM32/dev-V2) ![GitHub commits since tagged version (branch)](https://img.shields.io/github/commits-since/board707/DMD_STM32/v0.6.3) ![GitHub](https://img.shields.io/github/license/board707/DMD_STM32?color=g)
+
 ### Last version is v1.1.2 - Introduced multicolor for fixed and scrolling text 
 <img src="https://github.com/board707/DMD_STM32/blob/old-V1/.github/dmd_multicolor_small.jpg" style="text-align: center" />
 
 See [video](https://youtu.be/lw87UqoO50E) and dmd_multicolor example for details.
 
-### Version v1.1.0 - Add support of F6353/FM6363 S-PWM drivers
-### Attention! The repository was recently updated to v1.0.0
-The main difference from 0.x.x versions is a new panel template format. The documentation will coming. You can get a brief explanation of the new templates from the comments of the [DMD_Panel_Templates.h](https://github.com/board707/DMD_STM32/blob/dev-V2/DMD_Panel_Templates.h) file.
-### For last version with old panel templates [see v0.9.5](https://github.com/board707/DMD_STM32/releases/tag/v0.9.5)
-The main improvement of the 0.9.x versions is the **support of the Raspberry Pi Pico and another RP2040-based boards**. Version 0.9.4 added Turkish font examples and some bugfixes.
+> Attention! Recent versions are incompatibe with code prior v1.0.0 
+> The main difference from 0.x.x versions is a new panel template format. You can see a brief explanation in the [Wiki/About matrix patterns](https://github.com/board707/DMD_STM32/wiki/Reference#appendix-a) and in the comments of the [DMD_Panel_Templates.h](https://github.com/board707/DMD_STM32/blob/dev-V2/DMD_Panel_Templates.h) file.  
+> Last version with old panel templates [v0.9.5](https://github.com/board707/DMD_STM32/releases/tag/v0.9.5)
 
 About the library
 -----------------
@@ -46,7 +45,7 @@ LED panels supported
 | RGB with FM6353/6363 S-PWM drivers |     HUB75    |   128x64   |     1/32    | DMD_RGB_6353.h                             |
 |                                 |               |    64x32   |     1/16    |                                              |
 
-The set of supported matrices is constantly updated.
+Read more about supported panels in the [Wiki/Supported panels](https://github.com/board707/DMD_STM32/wiki/quick_start#supported-panels). The set of supported matrices is constantly updated.
 
 **Adding a new panels to the library**
 
@@ -55,8 +54,9 @@ If your panel is not supported by the library yet, please feel free to open an i
 Other features
 ------------
  - The graphics subsystem is inherited from Adafruit GFX library https://github.com/adafruit/Adafruit-GFX-Library
- - Dual memory buffering for reducing scanning artefacts and making some visual effects
+ - Dual memory buffering for reducing scanning artefacts and making some visual effects (see [Wiki/Examples](https://github.com/board707/DMD_STM32/wiki/quick_start#examples)).
  - Two color modes for RGB: highcolor RGB444 and low memory consuming RGB111 mode for LED signs, information boards etc.
+ - Multicolor strings for fixed text and scrolling (since v1.1.2)
  - Chaining up to 100 panels for Monochrome (46 tested) or 16 for RGB 64x32. The number of matrices is limited by the size of the controller memory.
  - For monochrome display - a new "Parallel" connection scheme, in which each horizontal row of panels is connected to a separate R_DATA pin
 
@@ -100,20 +100,19 @@ Connection
 ----------
 For detailed info about matrix connection see Wiki: 
 
-Russian:
-* [Wiki: Подключение монохромных панелей](https://github.com/board707/DMD_STM32/wiki/Connecting-for-Monochrome-(rus))
-* [Wiki: Подключение RGB](https://github.com/board707/DMD_STM32/wiki/Connecting-for-RGB(rus))
-
-English translation:
-
 * [Wiki: Connections for Monochrome panels](https://github.com/board707/DMD_STM32/wiki/Connections---Monochrome)
 * [Wiki: Connections for RGB](https://github.com/board707/DMD_STM32/wiki/Connections---RGB)
 
-See the examples for recommended pin combinations.
+Consult the examples for recommended pin combinations.
 
 Documentation
 -----------
-No documentation available (hopefully yet). See examples.
+
+* [Wiki: Home](https://github.com/board707/DMD_STM32/wiki/Home)
+* [Quick start guide](https://github.com/board707/DMD_STM32/wiki/quick_start)
+* [Examples](https://github.com/board707/DMD_STM32/wiki/quick_start#examples)
+* [Library API Reference](https://github.com/board707/DMD_STM32/wiki/Reference)
+* [LED Drivers Database](https://github.com/board707/DMD_STM32/wiki/Led_drivers)
 
 Example videos
 --------------
@@ -128,15 +127,15 @@ Sometimes wiring can be tricky so here I will put links to useful PCB-boards for
 
 Most important versions
 ---------
+(22 Dec 2023 - v1.1.2)  - Introduced multicolor for fixed and scrolling text 
+
 (30 Nov 2023 - v1.1.0)  - Add support of panels with FM6353/6363 S-PWM drivers
 
 (25 Mar 2023 - v1.0.4)  - Add support of panels with FM6126a chip
 
 (12 Feb 2023 - v1.0.0)  - New panel template model with multiparameter specialization
 
-(12 Dec 2022 - v0.9.2)  - Monochrome panels support for RP2040-based boards (Parallel connection mode)
-
-(16 Sep 2022 - v0.9.0)  - Add support of RP2040-based boards (RGB modes only) and using the DMA in the RGB modes for STM32F4 boards
+(16 Sep 2022 - v0.9.0)  - Add support of RP2040-based boards and using the DMA in the RGB modes for STM32F4 boards
 
 (10 Jul 2022 - v0.8.0)  - Add support of STM32F4 blackpills - STM32F401CC & STM32F411CE  (**Custom STM32 repo required!** see below)
 
