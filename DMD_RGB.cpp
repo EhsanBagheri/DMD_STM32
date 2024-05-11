@@ -142,9 +142,9 @@ void DMD_RGB_BASE::initialize_timers(voidFuncPtr handler) {
 #endif
 
 /*--------------------------------------------------------------------------------------*/
-void DMD_RGB_BASE::init(uint16_t scan_interval) {
+void DMD_RGB_BASE::init(uint16_t user_fps) {
 
-	if (scan_interval) this->default_fps = scan_interval;
+	if (user_fps) this->default_fps = user_fps;
 	this->setCycleLen();
 #if (defined(__STM32F1__) || defined(__STM32F4__))
 	set_pin_modes();

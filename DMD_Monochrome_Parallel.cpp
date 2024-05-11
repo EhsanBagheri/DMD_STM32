@@ -67,6 +67,7 @@ void DMD_Monochrome_Parallel::set_pin_modes() {
 /*--------------------------------------------------------------------------------------*/
 void DMD_Monochrome_Parallel::init(uint16_t scan_interval)
 {
+	if (scan_interval < 100) scan_interval = 100;
 	DMD::init(scan_interval);
 	this->initialize_timers(scan_running_dmd);
 

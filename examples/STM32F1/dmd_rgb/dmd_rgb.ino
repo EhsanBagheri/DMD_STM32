@@ -133,9 +133,9 @@ void loop(void)
     // shift steps in pixels for running text (positive - shift right, negative - left)
     int8_t step[] = { 1,-1,-2,2 };
     // running text shift interval
-    uint16_t interval = 30;
-
-    long prev_step = millis();
+    uint32_t interval = 50;
+    
+    uint32_t prev_step = millis();
     uint8_t col_ptr = 0;
     uint8_t i = 0, b = 0;
     uint8_t test = 255;

@@ -53,7 +53,7 @@ public:
 		byte panelsWide, byte panelsHigh, bool d_buf, uint8_t col_depth, uint8_t n_Rows, byte dmd_pixel_x, byte dmd_pixel_y);
 
 	// set desired FPS as init() parameter
-	void init(uint16_t scan_interval = 200) override;
+	void init(uint16_t user_fps = 200) override;
 	virtual void drawPixel(int16_t x, int16_t y, uint16_t color) override;
 	void clearScreen(byte bNormal) override;
 	void shiftScreen(int8_t step) override;

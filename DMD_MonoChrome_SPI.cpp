@@ -96,6 +96,7 @@ void DMD_MonoChrome_SPI::set_pin_modes() {
 /*--------------------------------------------------------------------------------------*/
 void DMD_MonoChrome_SPI::init(uint16_t scan_interval) {
 
+	if (scan_interval < 100) scan_interval = 100;
 	DMD::init(scan_interval);
 
 #if (defined(__STM32F1__) || defined(__STM32F4__))
